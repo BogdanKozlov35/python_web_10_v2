@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "python-web-10-v2"
+version = "0.1.0"
+description = ""
+authors = ["BogdanKozlov35 <bkozlov35@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.6"
+setuptools = "^70.2.0"
+django-crispy-forms = "^2.2"
+crispy-bootstrap4 = "^2024.1"
+mongoengine = "^0.28.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

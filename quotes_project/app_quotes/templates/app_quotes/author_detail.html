@@ -1,0 +1,27 @@
+{% extends "app_users/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Author Detail{% endblock %}
+
+
+{% extends "app_users/base.html" %}
+{% block title %}{{ author.name }}{% endblock %}
+    {% csrf_token %}
+    {{ form|crispy }}
+{% block content %}
+<h1>{{ author.fullname }}</h1>
+<p>{{ author.description }}</p>
+<p>{{ author.born_date }}</p>
+<p>{{ author.born_location }}</p>
+<p>{{ author.created_at }}</p>
+
+
+<h2>Quotes</h2>
+<ul>
+    {% for quote in author.quote_set.all %}
+        <li>"{{ quote.text }}"</li>
+    {% endfor %}
+</ul>
+{
+{% endblock %}

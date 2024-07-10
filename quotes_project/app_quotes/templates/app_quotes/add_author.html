@@ -1,0 +1,12 @@
+{% extends "app_users/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Add Author{% endblock %}
+{% block content %}
+<h2>Add Author</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Add Author</button>
+</form>
+{% endblock %}
