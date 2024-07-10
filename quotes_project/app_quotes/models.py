@@ -14,14 +14,14 @@ class Authors(models.Model):
     slug = models.SlugField(unique=True, null=False)
 
 
-    def __str__(self):
-        return self.fullname
-
-
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.fullname)
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.fullname
+
 
 
 class Tag(models.Model):

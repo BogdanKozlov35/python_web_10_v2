@@ -1,0 +1,40 @@
+{% extends "app_users/base.html" %}
+
+{% block content %}
+<h2>Quotes tagged with "{{ tag }}"</h2>
+<div class="row">
+    <div class="col-md-8">
+        {% for quote in quotes %}
+        <div class="quote" itemscope itemtype="http://schema.org/CreativeWork">
+            <span class="text" itemprop="text">
+                {{ quote.text }}
+            </span>
+            <span>by <small class="author" itemprop="author"> {{ quote.author }} </small>
+                <a href="{% url 'app_quotes:author_detail' quote.author.slug %}">(about)</a>
+            </span>
+            <div class="tags">
+                Tags:
+                {% for tag in quote.tags.all %}
+                <a class="tag" href="{% url 'app_quotes:quotes_by_tag' tag.name %}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<nav>
+    <ul class="pager">
+        <li class="previous {% if not quotes.has_previous %}disabled{% endif %}">
+            <a href="{% if quotes.has_previous %}{% url 'app_quotes:quotes_by_tag' tag %}?page={{ quotes.previous_page_number }}{% else %}#{% endif %}">
+                <span aria-hidden="true">←</span> Previous
+            </a>
+        </li>
+        <li class="next {% if not quotes.has_next %}disabled{% endif %}">
+            <a href="{% if quotes.has_next %}{% url 'app_quotes:quotes_by_tag' tag %}?page={{ quotes.next_page_number }}{% else %}#{% endif %}">
+                Next <span aria-hidden="true">→</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}

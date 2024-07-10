@@ -17,6 +17,8 @@ body {
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
+
+    justify-content: space-between;
 }
 
 .row {
@@ -136,3 +138,56 @@ p {
 .copyright {
     text-align: center;
 }
+
+.tags-box {
+    text-align: right;
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.tags-box h2 {
+    margin-top: 0px;
+}
+
+.tag-item {
+    display: block;
+    margin: 4px;
+}
+
+
+
+
+/* style.css */
+
+.quotes-box {
+    flex: 0 0 65%;
+    padding-right: 15px;
+}
+
+.tags-box {
+    flex: 0 0 20%;
+    padding-left: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.tags-box h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.tag-item {
+    display: block;
+    margin-bottom: 5px;
+
+.tag-item a {
+    text-decoration: none;
+    color: #007bff;
+
+.tag-item a:hover {
+    text-decoration: underline;
+}
+

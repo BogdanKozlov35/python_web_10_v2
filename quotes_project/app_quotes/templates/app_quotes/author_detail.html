@@ -6,7 +6,7 @@
 
 
 {% extends "app_users/base.html" %}
-{% block title %}{{ author.name }}{% endblock %}
+{% block title %}{{ author.fullname }}{% endblock %}
     {% csrf_token %}
     {{ form|crispy }}
 {% block content %}

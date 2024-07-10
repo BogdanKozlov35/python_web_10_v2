@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView
@@ -8,8 +9,6 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import TagForm, AuthorForm, QuoteForm
 from .models import Quote, Authors, Tag
 
-
-# Create your views here.
 
 class HomeView(ListView):
     model = Quote
@@ -31,6 +30,7 @@ class HomeView(ListView):
             quotes = paginator.page(paginator.num_pages)
 
         context['quotes'] = quotes
+        context['top_tags'] = Tag.objects.annotate(num_quotes=Count('quote')).order_by('-num_quotes')[:10]
         return context
 
 
@@ -86,3 +86,18 @@ class AddQuoteView(LoginRequiredMixin, CreateView):
 def quote_list(request):
     quotes = Quote.objects.all()
     return render(request, 'app_quotes/home.html', {'quotes': quotes})
+
+
+class QuotesByTagView(ListView):
+    model = Quote
+    template_name = 'app_quotes/quotes_by_tag.html'
+    context_object_name = 'quotes'
+
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, name=self.kwargs['tag'])
+        return Quote.objects.filter(tags=tag)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = self.kwargs['tag']
+        return context
