@@ -55,7 +55,18 @@ class AuthorDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         author = self.get_object()
-        context['quotes'] = Quote.objects.filter(author=author)
+        quotes_list = Quote.objects.filter(author=author)
+        paginator = Paginator(quotes_list, 10)  # Add pagination
+        page = self.request.GET.get('page')
+
+        try:
+            quotes = paginator.page(page)
+        except PageNotAnInteger:
+            quotes = paginator.page(1)
+        except EmptyPage:
+            quotes = paginator.page(paginator.num_pages)
+
+        context['quotes'] = quotes
         return context
 
 
@@ -63,7 +74,7 @@ class AddTagView(LoginRequiredMixin, CreateView):
     login_url = "/users/login/"
     model = Tag
     template_name = "app_quotes/add_tag.html"
-    success_url = reverse_lazy('add_tag')
+    success_url = reverse_lazy('app_quotes:home')
     form_class = TagForm
 
 
@@ -71,7 +82,7 @@ class AddAuthorView(LoginRequiredMixin, CreateView):
     login_url = "/users/login/"
     model = Authors
     template_name = "app_quotes/add_author.html"
-    success_url = reverse_lazy('add_author')
+    success_url = reverse_lazy('app_quotes:home')
     form_class = AuthorForm
 
 
@@ -79,7 +90,7 @@ class AddQuoteView(LoginRequiredMixin, CreateView):
     login_url = "/users/login/"
     model = Authors
     template_name = "app_quotes/add_quote.html"
-    success_url = reverse_lazy('add_quote')
+    success_url = reverse_lazy('app_quotes:home')
     form_class = QuoteForm
 
 

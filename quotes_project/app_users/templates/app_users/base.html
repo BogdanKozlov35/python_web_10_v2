@@ -21,9 +21,10 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'app_quotes:add_quote' %}">Add Quote</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'app_quotes:add_tag' %}">Add Tag</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'app_users:logout' %}">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app_users:profile' %}">Profile</a></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'app_users:login' %}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'app_users:register' %}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app_users:signup' %}">Register</a></li>
                 {% endif %}
             </ul>
         </div>

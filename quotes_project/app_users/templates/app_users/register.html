@@ -1,12 +1,42 @@
 {% extends "app_users/base.html" %}
-{% load crispy_forms_tags %}
-{% load static %}
-{% block title %}Register{% endblock %}
+
 {% block content %}
-<h2>Register</h2>
-<form method="POST">
+
+<div>
+    <h2>Register</h2>
+</div>
+
+<form method="post" action="{% url 'app_users:signup' %}">
     {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Register</button>
+    <div>
+        <label> Username:
+            {{ form.username }}
+        </label>
+        <span>{{ form.errors.username }}</span>
+    </div>
+    <div>
+        <label> Email:
+            {{ form.email }}
+        </label>
+        <span>{{ form.errors.email }}</span>
+    </div>
+    <div>
+        <label> Password:
+            {{ form.password1 }}
+        </label>
+        <span>{{ form.errors.password1 }}</span>
+    </div>
+    <div>
+        <label> Password confirmation:
+            {{ form.password2 }}
+        </label>
+        <span>{{ form.errors.password2 }}</span>
+    </div>
+    <div class="grid">
+        <button type="submit">Submit</button>
+        <button type="reset" class="secondary">Reset</button>
+    </div>
 </form>
+
 {% endblock %}
+

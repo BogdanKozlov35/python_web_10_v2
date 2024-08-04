@@ -4,11 +4,9 @@ import django
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'quotes_project.settings')
 
 django.setup()
-
 
 from app_quotes.models import Authors, Tag, Quote
 
@@ -46,6 +44,3 @@ for quote in quotes:
         )
         for tag in tags:
             q.tags.add(tag)
-
-
-

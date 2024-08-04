@@ -10,8 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+import sys
+
 from pathlib import Path
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from connection.config import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*=q6c0zx!qiopssluxciv63s6u*!uc6bekgdv762#_j2w743*3'
+SECRET_KEY = config.DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,14 +85,24 @@ WSGI_APPLICATION = 'quotes_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': config.POSTGRES_ENGINE,
+        'NAME': config.POSTGRES_NAME,
+        'USER': config.POSTGRES_USER,
+        'PASSWORD': config.POSTGRES_PASSWORD,
+        'HOST': config.POSTGRES_HOST,
+        'PORT': config.POSTGRES_PORT
     }
 }
+
+EMAIL_BACKEND = config.EMAIL_BACKEND
+EMAIL_HOST = config.EMAIL_HOST
+EMAIL_PORT = config.EMAIL_PORT
+EMAIL_STARTTLS = config.EMAIL_STARTTLS
+EMAIL_USE_SSL = config.EMAIL_USE_SSL
+EMAIL_USE_TLS = config.EMAIL_USE_TLS
+EMAIL_HOST_USER = config.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+DEFAULT_FROM_EMAIL = config.DEFAULT_FROM_EMAIL
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
